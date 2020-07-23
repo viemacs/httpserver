@@ -142,7 +142,7 @@ func getFilelist(baseDir, filename string) (list []string) {
 func getFileLinks(baseDir string, files []string) (list string) {
 	list = fmt.Sprintf(`
   <h3>Directory listing for %s</h3>
-  <form method="post" enctype="multipart/form-data" action="/upload">
+  <form method="post" enctype="multipart/form-data" action="/">
 	<label for="upload">upload file:</label>
 	<input type="file" id="upload" name="uploadfile" />
 	<input type="submit" value="Submit" />
