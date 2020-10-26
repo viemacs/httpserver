@@ -9,15 +9,22 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
 	"time"
 )
 
 var mux map[string]func(http.ResponseWriter, *http.Request)
 
 func main() {
+	major, minor, patch := 0, 0, 4
+	fmt.Printf("%s v%d.%d.%d\n", filepath.Base(os.Args[0]), major, minor, patch)
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 	port := flag.Int("p", 8000, "service port")
+	ver := flag.Bool("v", false, "show version and exit")
 	flag.Parse()
+	if *ver {
+		os.Exit(0)
+	}
 	server := http.Server{
 		Addr:        fmt.Sprintf(":%d", *port),
 		Handler:     &Handler{},
@@ -136,6 +143,7 @@ func getFilelist(baseDir, filename string) (list []string) {
 	for _, info := range infos {
 		list = append(list, info.Name())
 	}
+	sort.Strings(list)
 	return
 }
 
